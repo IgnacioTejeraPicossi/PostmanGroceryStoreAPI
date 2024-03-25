@@ -1,0 +1,2290 @@
+{
+	"info": {
+		"_postman_id": "57cfc055-a0ca-44ad-b1e2-eae12d85254e",
+		"name": "federation-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12809357"
+	},
+	"item": [
+		{
+			"name": "Source",
+			"item": [
+				{
+					"name": "List Sources",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].type).to.eql(\"EVENT\");",
+									"    pm.expect(jsonData[1].alias).to.eql(\"5dc997fe85879d1574f93c1d\");",
+									"    //pm.expect(jsonData[0].defaultConfig.url).to.eql(\"https://dev.axiell.io/api/event/latest/api/customers/*\");",
+									"    pm.expect(jsonData[3].type).to.eql(\"SRU\");",
+									"  ",
+									"    pm.expect(jsonData[7].type).to.eql(\"K10\");",
+									"    //pm.expect(jsonData[7].defaultConfig.K10_API_URL).to.eql(\"http://findex.gbv.de/index/axiell/select\");",
+									"     pm.expect(jsonData[10].type).to.eql(\"SRU\");",
+									"    ",
+									"       ",
+									"});",
+									"var template = `",
+									"    <table bgcolor=\"#FFFFFF\">",
+									"        <tr>",
+									"            <th>type</th>",
+									"            <th>id</th>",
+									"            <th>alias</th>",
+									"            <th>defaultConfig.sruSource</th>",
+									"            ",
+									"        </tr>",
+									"",
+									"        {{#each response}}",
+									"            <tr>",
+									"                <td>{{type}}</td>",
+									"                <td>{{id}}</td>",
+									"                <td>{{alias}}</td>",
+									"                <td>{{defaultConfig.sruSource}}</td>",
+									"                ",
+									"            </tr>",
+									"        {{/each}}",
+									"    </table>",
+									"`;",
+									"//Set visualizer , need template",
+									"pm.visualizer.set(template,{",
+									"    //Pass the response body parsed as JSON as 'data'",
+									"    response: pm.response.json()",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Sources",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/federation/{{version}}/sources",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"federation",
+										"{{version}}",
+										"sources"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 Aug 2021 08:17:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Gravitee-Transaction-Id",
+									"value": "3208c15b-26b0-45c1-88c1-5b26b095c1ae"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "JSESSIONID=737433292694B1A03B0EA1178197A72E; Path=/; HttpOnly"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "POST, GET, PUT, OPTIONS, DELETE"
+								},
+								{
+									"key": "Access-Control-Max-Age",
+									"value": "3600"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Origin, Accept, Content-Type,X-Requested-With,Accept-Encoding,Authorization"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"5da094ac85879d0dd1dd45e8\",\n        \"alias\": \"events1\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://dev.axiell.io/api/event/latest/api/customers/*\",\n            \"authToken\": \"ZXZlbnREZXY6ITN2M250RDN2Iw==\"\n        }\n    },\n    {\n        \"id\": \"5dc997fe85879d1574f93c1d\",\n        \"alias\": \"5dc997fe85879d1574f93c1d\",\n        \"type\": \"SRU\"\n    },\n    {\n        \"id\": \"5dc9982685879d1574f93c1e\",\n        \"alias\": \"5dc9982685879d1574f93c1e\",\n        \"type\": \"SRU\"\n    },\n    {\n        \"id\": \"5dc9984085879d1574f93c1f\",\n        \"alias\": \"5dc9984085879d1574f93c1f\",\n        \"type\": \"SRU\"\n    },\n    {\n        \"id\": \"5e874cde85879d7130231e4d\",\n        \"alias\": \"5e874cde85879d7130231e4d\",\n        \"type\": \"SRU\"\n    },\n    {\n        \"id\": \"5e874ceb85879d7130231e4e\",\n        \"alias\": \"5e874ceb85879d7130231e4e\",\n        \"type\": \"SRU\"\n    },\n    {\n        \"id\": \"5e874cf385879d7130231e4f\",\n        \"alias\": \"5e874cf385879d7130231e4f\",\n        \"type\": \"SRU\"\n    },\n    {\n        \"id\": \"5f08c49576cbde7abcd2add3\",\n        \"alias\": \"k10\",\n        \"type\": \"K10\",\n        \"defaultConfig\": {\n            \"K10_API_URL\": \"https://bookit.axiell.com/k10/index/axiell\"\n        }\n    },\n    {\n        \"id\": \"5f3d1769c0c3af3a5c6fc72a\",\n        \"alias\": \"5f3d1769c0c3af3a5c6fc72a\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"DNBAuthority\",\n            \"authorityType\": \"Person\"\n        }\n    },\n    {\n        \"id\": \"5f7b58378a05ab32abe79d32\",\n        \"alias\": \"events2\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"5f7d580a8a05ab32abe79d43\",\n        \"alias\": \"5f7d580a8a05ab32abe79d43\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7d5b828a05ab32abe79d45\",\n        \"alias\": \"5f7d5b828a05ab32abe79d45\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7dbcd98a05ab32abe79d49\",\n        \"alias\": \"5f7dbcd98a05ab32abe79d49\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7dbd278a05ab32abe79d4a\",\n        \"alias\": \"5f7dbd278a05ab32abe79d4a\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7dbfbe8a05ab32abe79d4f\",\n        \"alias\": \"5f7dbfbe8a05ab32abe79d4f\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7dc0508a05ab32abe79d51\",\n        \"alias\": \"5f7dc0508a05ab32abe79d51\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7dc12d8a05ab32abe79d53\",\n        \"alias\": \"5f7dc12d8a05ab32abe79d53\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7dc67e8a05ab32abe79d56\",\n        \"alias\": \"5f7dc67e8a05ab32abe79d56\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7ebaf08a05ab32abe79d61\",\n        \"alias\": \"5f7ebaf08a05ab32abe79d61\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7ebaf18a05ab32abe79d62\",\n        \"alias\": \"5f7ebaf18a05ab32abe79d62\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7ebaf18a05ab32abe79d63\",\n        \"alias\": \"5f7ebaf18a05ab32abe79d63\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7ebaf28a05ab32abe79d64\",\n        \"alias\": \"5f7ebaf28a05ab32abe79d64\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7ebaf28a05ab32abe79d65\",\n        \"alias\": \"5f7ebaf28a05ab32abe79d65\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7ebaf38a05ab32abe79d66\",\n        \"alias\": \"5f7ebaf38a05ab32abe79d66\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7eeb108a05ab32abe79d72\",\n        \"alias\": \"events3\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"5f7eeb608a05ab32abe79d74\",\n        \"alias\": \"5f7eeb608a05ab32abe79d74\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7eeb728a05ab32abe79d75\",\n        \"alias\": \"5f7eeb728a05ab32abe79d75\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Helveticat\"\n        }\n    },\n    {\n        \"id\": \"5f7eeb7e8a05ab32abe79d76\",\n        \"alias\": \"5f7eeb7e8a05ab32abe79d76\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"DNB\"\n        }\n    },\n    {\n        \"id\": \"5f7eeb888a05ab32abe79d77\",\n        \"alias\": \"5f7eeb888a05ab32abe79d77\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Bibbi\"\n        }\n    },\n    {\n        \"id\": \"5f7eeb988a05ab32abe79d78\",\n        \"alias\": \"5f7eeb988a05ab32abe79d78\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Bibsys\"\n        }\n    },\n    {\n        \"id\": \"5f7f122a8a05ab32abe79d7e\",\n        \"alias\": \"5f7f122a8a05ab32abe79d7e\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7f2e0e8a05ab32abe79d88\",\n        \"alias\": \"5f7f2e0e8a05ab32abe79d88\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5f7f2fee8a05ab32abe79d92\",\n        \"alias\": \"5f7f2fee8a05ab32abe79d92\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"5fe0aa4cc15cee04b802fdec\",\n        \"alias\": \"bookit-catalogue\",\n        \"type\": \"ARENA_CATALOGUE\",\n        \"defaultConfig\": {\n            \"SOLR_API_URL\": \"http://theduck.axiell.com:8983/solr/open-entity-solr\"\n        }\n    },\n    {\n        \"id\": \"6065cdce80a86c1ca8795782\",\n        \"alias\": \"usahec-catalogue\",\n        \"type\": \"ARENA_CATALOGUE\",\n        \"defaultConfig\": {\n            \"SOLR_API_URL\": \"http://theduck.axiell.com:8983/solr/open-entity-solr\"\n        }\n    },\n    {\n        \"id\": \"60bdd65b6b62d7100928bec4\",\n        \"alias\": \"60bdd65b6b62d7100928bec4\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://filipahfelt.se/\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"60d441af3021084901dbebde\",\n        \"alias\": \"60d441af3021084901dbebde\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://filipahfelt.se/\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"60d446b03021084901dbebdf\",\n        \"alias\": \"60d446b03021084901dbebdf\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"605b37426c815344d89e5f5b\",\n        \"alias\": \"emu-archive\",\n        \"type\": \"ARCHIVE\",\n        \"defaultConfig\": {\n            \"ARCHIVE_API_URL\": \"https://dev.axiell.io/api/entrystore-solr/latest/solr/entrystore-core1\",\n            \"ARCHIVE_METADATA_BASE_URL\": \"https://dev.axiell.io/api/entrystore/latest/emu/metadata/%s\"\n        }\n    },\n    {\n        \"id\": \"6065cdf480a86c1ca8795783\",\n        \"alias\": \"aims-archive\",\n        \"type\": \"ARCHIVE\",\n        \"defaultConfig\": {\n            \"ARCHIVE_API_URL\": \"https://dev.axiell.io/api/entrystore-solr/latest/solr/entrystore-core1\",\n            \"ARCHIVE_METADATA_BASE_URL\": \"https://dev.axiell.io/api/entrystore/latest/aims/metadata/%s\"\n        }\n    },\n    {\n        \"id\": \"60ed6cbc30210819f2103547\",\n        \"alias\": \"60ed6cbc30210819f2103547\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"60ed6d4b30210819f2103548\",\n        \"alias\": \"60ed6d4b30210819f2103548\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://filipahfelt.se/\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611f9b1794c8e06f3dbc78d4\",\n        \"alias\": \"611f9b1794c8e06f3dbc78d4\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611f9b28902e163a6a9e442f\",\n        \"alias\": \"611f9b28902e163a6a9e442f\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611f9b34902e163a6a9e4430\",\n        \"alias\": \"611f9b34902e163a6a9e4430\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611fa157902e163a6a9e4431\",\n        \"alias\": \"611fa157902e163a6a9e4431\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611fa220902e163a6a9e4433\",\n        \"alias\": \"611fa220902e163a6a9e4433\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611fa41f902e163a6a9e4434\",\n        \"alias\": \"611fa41f902e163a6a9e4434\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611fab2694c8e06f3dbc78d6\",\n        \"alias\": \"611fab2694c8e06f3dbc78d6\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611fab2f902e163a6a9e4435\",\n        \"alias\": \"611fab2f902e163a6a9e4435\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://filipahfelt.se/\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"611fbb25902e163a6a9e4437\",\n        \"alias\": \"611fbb25902e163a6a9e4437\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"611fbb3694c8e06f3dbc78d9\",\n        \"alias\": \"611fbb3694c8e06f3dbc78d9\",\n        \"type\": \"SRU\",\n        \"defaultConfig\": {\n            \"sruSource\": \"Libris\"\n        }\n    },\n    {\n        \"id\": \"6123654ea609c0313d20896d\",\n        \"alias\": \"6123654ea609c0313d20896d\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://filipahfelt.se/\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    },\n    {\n        \"id\": \"61278805902e16550a956774\",\n        \"alias\": \"61278805902e16550a956774\",\n        \"type\": \"EVENT\",\n        \"defaultConfig\": {\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "List Sources Security Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].type).to.eql(\"EVENT\");",
+									"    pm.expect(jsonData[1].alias).to.eql(\"5dc997fe85879d1574f93c1d\");",
+									"    //pm.expect(jsonData[0].defaultConfig.url).to.eql(\"https://dev.axiell.io/api/event/latest/api/customers/*\");",
+									"    pm.expect(jsonData[3].type).to.eql(\"SRU\");",
+									"  ",
+									"    pm.expect(jsonData[7].type).to.eql(\"K10\");",
+									"    //pm.expect(jsonData[7].defaultConfig.K10_API_URL).to.eql(\"http://findex.gbv.de/index/axiell/select\");",
+									"     pm.expect(jsonData[10].type).to.eql(\"SRU\");",
+									"    ",
+									"       ",
+									"});",
+									"var template = `",
+									"    <table bgcolor=\"#FFFFFF\">",
+									"        <tr>",
+									"            <th>type</th>",
+									"            <th>id</th>",
+									"            <th>fieldIdentifier</th>",
+									"            <th>defaultConfig</th>",
+									"            ",
+									"        </tr>",
+									"",
+									"        {{#each response}}",
+									"            <tr>",
+									"                <td>{{type}}</td>",
+									"                <td>{{id}}</td>",
+									"                <td>{{fieldIdentifier}}</td>",
+									"                <td>{{defaultConfig}}</td>",
+									"                ",
+									"            </tr>",
+									"        {{/each}}",
+									"    </table>",
+									"`;",
+									"//Set visualizer , need template",
+									"pm.visualizer.set(template,{",
+									"    //Pass the response body parsed as JSON as 'data'",
+									"    response: pm.response.json()",
+									"});",
+									"",
+									"var jsonData = pm.response.json();      ",
+									"let responseSize = jsonData.length;",
+									"console.log(responseSize);",
+									"console.log(parseInt(pm.environment.get(\"itemListValue\")))",
+									"/* ",
+									"    ",
+									"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. ",
+									"    ",
+									"*/",
+									"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))",
+									"    pm.test(\"Unexpected number of items fetched\");",
+									"else",
+									"    pm.test(\"Expected number of items fetched\");",
+									"",
+									"",
+									"/* ",
+									"",
+									"    [+] Check for HSTS: An attacker can carry out effective pharming, phishing, and man-in-the-middle attacks if the HTTPS server incorrectly implements Strict Transport Security. HSTS prevents visitors from making unencrypted HTTP connections to a server.",
+									"",
+									"*/",
+									"/* Error",
+									"pm.test(\"Strict-Transport-Security is present\", function () {",
+									"    pm.response.to.have.header(\"strict-transport-security\");",
+									"});",
+									"*/",
+									"",
+									"",
+									"/* ",
+									"",
+									"    [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.",
+									"",
+									"*/",
+									"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))",
+									"{ ",
+									"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
+									"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))",
+									"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");",
+									"}",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Source",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"source_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"type\": \"EVENT\",\r\n        \"fieldIdentifier\": \"event.\",\r\n        \"defaultConfig\": {\r\n            \"url\": \"https://test.axiell.io/api/event/rc/api/customers/*\",\r\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\r\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.type).to.eql(\"EVENT\");\r",
+									"    pm.expect(jsonData.alias).to.eql(\"61278805902e16550a956774\");\r",
+									"   pm.expect(jsonData.defaultConfig.url).to.eql(\"https://test.axiell.io/api/event/rc/api/customers/*\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/id/{{source_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"id",
+								"{{source_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n        \"type\": \"EVENT\",\r\n        \"fieldIdentifier\": \"event.\",\r\n        \"defaultConfig\": {\r\n            \"url\": \"https://filipahfelt.se/\",\r\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\r\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{source_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{source_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source Security Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"var jsonData = pm.response.json();      \r",
+									"let responseSize = jsonData.length;\r",
+									"console.log(responseSize);\r",
+									"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+									"/* \r",
+									"    \r",
+									"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
+									"    \r",
+									"*/\r",
+									"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
+									"    pm.test(\"Unexpected number of items fetched\");\r",
+									"else\r",
+									"    pm.test(\"Expected number of items fetched\");\r",
+									"\r",
+									"\r",
+									"/* \r",
+									"\r",
+									"    [+] Check for HSTS: An attacker can carry out effective pharming, phishing, and man-in-the-middle attacks if the HTTPS server incorrectly implements Strict Transport Security. HSTS prevents visitors from making unencrypted HTTP connections to a server.\r",
+									"\r",
+									"*/\r",
+									"/*\r",
+									"pm.test(\"Strict-Transport-Security is present\", function () {\r",
+									"    pm.response.to.have.header(\"strict-transport-security\");\r",
+									"});\r",
+									"*/\r",
+									"\r",
+									"/* \r",
+									"\r",
+									"    [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
+									"\r",
+									"*/\r",
+									"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
+									"{ \r",
+									"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
+									"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
+									"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
+									"}\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n        \"type\": \"EVENT\",\r\n        \"fieldIdentifier\": \"event.\",\r\n        \"defaultConfig\": {\r\n            \"url\": \"https://filipahfelt.se/\",\r\n            \"authToken\": \"ZXZlbnRUZXN0OkF4aWVsbENFU1Rlc3Qx\",\r\n            \"iri\": \"https://test.axiell.io/api/event/rc/api/customers/%s/events/%s\"\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{source_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{source_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Source SRU Libris",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sourceSRU_id\", jsonData.id);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Libris\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source SRU Libris",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/id/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"id",
+								"{{sourceSRU_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source SRU Libris",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"Test\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Libris\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Source SRU Libris",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Source SRU Helveticat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sourceSRU_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Helveticat\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source SRU Helveticat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/id/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"id",
+								"{{sourceSRU_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source SRU Helveticat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"Test PUT Helveticat\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Helveticat\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Source SRU Helveticat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Source SRU DNB",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sourceSRU_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"DNB\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source SRU DNB",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/id//{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"id",
+								"",
+								"{{sourceSRU_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source SRU DNB",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"Test PUT DNB\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"DNB\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Source SRU DNB",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Source SRU Bibbi",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sourceSRU_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Bibbi\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source SRU Bibbi",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/id/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"id",
+								"{{sourceSRU_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source SRU Bibbi",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"Test PUT Helveticat\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Helveticat\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Source SRU Bibbi",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Source SRU Bibsys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sourceSRU_id\", jsonData.id);\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Bibsys\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source SRU Bibsys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/id/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"id",
+								"{{sourceSRU_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source SRU Bibsys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"Test PUT Helveticat\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Helveticat\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Source SRU Bibsys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Source SRU Bokbasen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sourceSRU_id\", jsonData.id);\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Bokbasen\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source SRU Bokbasen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/id/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"id",
+								"{{sourceSRU_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Source SRU Bokbasen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n  \"type\": \"SRU\",\r\n  \"fieldIdentifier\": \"Test PUT Helveticat\",\r\n  \"defaultConfig\": {\r\n    \"sruSource\": \"Helveticat\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Source SRU Bokbasen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{sourceSRU_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{sourceSRU_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "List customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include('\"name\":\"Test Customer\"');",
+									"    pm.expect(pm.response.text()).to.include('\"sourceId\":\"5da094ac85879d0dd1dd45e8\"');",
+									"    pm.expect(pm.response.text()).to.include('\"id\":\"5da0951785879d0dd1dd45e9\"');",
+									"    pm.expect(pm.response.text()).to.include('\"description\":\"Automatic test\"');",
+									"",
+									"});",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"customer_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"alias\": \"Filip\",\r\n        \"customerSources\": [\r\n            {\r\n                \"sourceId\": \"5da094ac85879d0dd1dd45e8\",\r\n                \"sourceConfig\": null\r\n            }\r\n        ],\r\n  \"description\": \"Summer intern\",\r\n  \"name\": \"Filip Åhfelt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    //check for particular values and arrary in the response body:\r",
+									"  \r",
+									"    //pm.expect(pm.response.json().clientId).to.eql(pm.environment.get(\"client_id\"));\r",
+									"    pm.expect(jsonData.description).to.eql(\"Summer intern\");\r",
+									"    pm.expect(jsonData.alias).to.eql(\"Filip\");\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"customer_id\"));\r",
+									"           \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Filip Åhfelt\",\r\n    \"alias\": \"FilipIntern\",\r\n    \"description\": \"Summer intern\",\r\n    \"customerSources\": [\r\n        {\r\n            \"sourceId\": \"5da094ac85879d0dd1dd45e8\",\r\n            \"sourceConfig\": null\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer Automatic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"customerAutomatic_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"alias\": \"ITP\",\r\n        \"customerSources\": [\r\n            {\r\n                \"sourceId\": \"5da094ac85879d0dd1dd45e8\",\r\n                \"sourceConfig\": null\r\n            }\r\n        ],\r\n  \"description\": \"Automatic test\",\r\n  \"name\": \"Ignacio\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Automatic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    //check for particular values and arrary in the response body:\r",
+									"  \r",
+									"    //pm.expect(pm.response.json().clientId).to.eql(pm.environment.get(\"client_id\"));\r",
+									"    pm.expect(jsonData.description).to.eql(\"Automatic test\");\r",
+									"    pm.expect(jsonData.alias).to.eql(\"ITP\");\r",
+									"    //pm.expect(jsonData.id).to.eql({{customer_id}});\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"customerAutomatic_id\"));\r",
+									"           \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customerAutomatic_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customerAutomatic_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer Automatic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ignacio\",\r\n    \"alias\": \"ITP PUT test\",\r\n    \"description\": \"Automatic test\",\r\n    \"customerSources\": [\r\n        {\r\n            \"sourceId\": \"5da094ac85879d0dd1dd45e8\",\r\n            \"sourceConfig\": null\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customerAutomatic_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customerAutomatic_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer Automatic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customerAutomatic_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customerAutomatic_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Customer Search Sources",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 4000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(4000);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customer_id}}/search",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customer_id}}",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer hints Sources",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 4000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(4000);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customer_id}}/hints",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customer_id}}",
+								"hints"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Source Event and Customer",
+			"item": [
+				{
+					"name": "Delete Source",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{source_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{source_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Source Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is Not Found 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/sources/{{source_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"sources",
+								"{{source_id}}"
+							]
+						},
+						"description": "Get single source"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is Not Found 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/federation/{{version}}/customers/{{customer_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"federation",
+								"{{version}}",
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "!Arena#",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "arena",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "source_id",
+			"value": "5df9172a3d9a0e57901ca0be"
+		},
+		{
+			"key": "customer_id",
+			"value": "5df917323d9a0e57901ca0bf"
+		},
+		{
+			"key": "pressreader_rss_source_id",
+			"value": "5df929973d9a0e57901ca0ce"
+		},
+		{
+			"key": "pressreader_rss_customer_id",
+			"value": "5df929993d9a0e57901ca0cf"
+		},
+		{
+			"key": "k10_solr_source_id",
+			"value": "5dfb719bbf4d5b71a0037ba9"
+		},
+		{
+			"key": "k10_solr_customer_id",
+			"value": "5dfb719ebf4d5b71a0037baa"
+		},
+		{
+			"key": "base_url",
+			"value": "https://test.axiell.io"
+		}
+	]
+}

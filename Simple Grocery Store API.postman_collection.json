@@ -1,0 +1,1113 @@
+{
+	"info": {
+		"_postman_id": "3357caa9-7b9c-4e75-85f2-0b72beb88db8",
+		"name": "Simple Grocery Store API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29105816"
+	},
+	"item": [
+		{
+			"name": "API Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();      \r",
+							"\r",
+							"let responseSize = jsonData.length;\r",
+							"\r",
+							"console.log(responseSize);\r",
+							"\r",
+							"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"    \r",
+							"\r",
+							"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
+							"\r",
+							"    \r",
+							"\r",
+							"*/\r",
+							"\r",
+							"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"    pm.test(\"Unexpected number of items fetched\");\r",
+							"\r",
+							"else\r",
+							"\r",
+							"    pm.test(\"Expected number of items fetched\");\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"     [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
+							"\r",
+							" */\r",
+							"\r",
+							"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
+							"\r",
+							"{ \r",
+							"\r",
+							"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
+							"\r",
+							"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
+							"\r",
+							"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
+							"\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/status",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();      \r",
+							"\r",
+							"let responseSize = jsonData.length;\r",
+							"\r",
+							"console.log(responseSize);\r",
+							"\r",
+							"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"    \r",
+							"\r",
+							"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
+							"\r",
+							"    \r",
+							"\r",
+							"*/\r",
+							"\r",
+							"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"    pm.test(\"Unexpected number of items fetched\");\r",
+							"\r",
+							"else\r",
+							"\r",
+							"    pm.test(\"Expected number of items fetched\");\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"     [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
+							"\r",
+							" */\r",
+							"\r",
+							"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
+							"\r",
+							"{ \r",
+							"\r",
+							"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
+							"\r",
+							"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
+							"\r",
+							"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
+							"\r",
+							"}\r",
+							"\r",
+							"var template = ` \r",
+							"    <table bgcolor=\"#FFFFFF\">\r",
+							"        <tr>id</th>\r",
+							"            <th>category</th>\r",
+							"            <th>name</th>\r",
+							"            <th>inStock</th>\r",
+							"            \r",
+							"        </tr>\r",
+							"\r",
+							"        {{#each response}}\r",
+							"            <tr>\r",
+							"                <td>{{id}}</td>\r",
+							"                <td>{{category}}</td>\r",
+							"                <td>{{name}}</td>\r",
+							"                <td>{{inStock}}</td>\r",
+							"                \r",
+							"            </tr>\r",
+							"        {{/each}}\r",
+							"    </table>\r",
+							"`;\r",
+							"//Set visualizer , need template\r",
+							"pm.visualizer.set(template,{\r",
+							"    //Pass the response body parsed as JSON as 'data'\r",
+							"    response: pm.response.json()\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products?category=coffee&results=20",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "coffee"
+						},
+						{
+							"key": "results",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all products PostBot",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"",
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>ID</th>",
+							"        <th>Category</th>",
+							"        <th>Name</th>",
+							"        <th>In Stock</th>",
+							"    </tr>",
+							"    ",
+							"    {{#each response}}",
+							"        <tr>",
+							"            <td>{{id}}</td>",
+							"            <td>{{category}}</td>",
+							"            <td>{{name}}</td>",
+							"            <td>{{inStock}}</td>",
+							"        </tr>",
+							"    {{/each}}",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    return {response: pm.response.json()}",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products?category=coffee&results=20",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "coffee"
+						},
+						{
+							"key": "results",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single product Path",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.id).to.eql(4643);\r",
+							"\r",
+							"    pm.expect(jsonData.category).to.eql(\"coffee\");\r",
+							"\r",
+							"    pm.expect(jsonData.inStock).to.eql(true);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products/:productId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "productId",
+							"value": "4643"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single product Query +path",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products/:productId?product-label=true",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "product-label",
+							"value": "true"
+						}
+					],
+					"variable": [
+						{
+							"key": "productId",
+							"value": "4643"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();      \r",
+							"\r",
+							"let responseSize = jsonData.length;\r",
+							"\r",
+							"console.log(responseSize);\r",
+							"\r",
+							"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"    \r",
+							"\r",
+							"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
+							"\r",
+							"    \r",
+							"\r",
+							"*/\r",
+							"\r",
+							"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"    pm.test(\"Unexpected number of items fetched\");\r",
+							"\r",
+							"else\r",
+							"\r",
+							"    pm.test(\"Expected number of items fetched\");\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"     [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
+							"\r",
+							" */\r",
+							"\r",
+							"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
+							"\r",
+							"{ \r",
+							"\r",
+							"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
+							"\r",
+							"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
+							"\r",
+							"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
+							"\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/carts",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Example",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n   \"FirstName\" :\"Ignacio\", \"John\",\r\n   \"age\" : 22 ,\r\n   \"isMarried\" : false,\r\n   \"hobbies\" : [\"netflix\", \"mountain bike\"]\r\n    },\r\n    {\r\n   \"FirstName\" : \"Ignacio\",\r\n   \"age\" : 62 ,\r\n   \"isMarried\" : true,\r\n   \"hobbies\" : [\"Golf\", \"mountain bike\"]\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "UJGK6jOgon0NTFdYhtWqD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add item to cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();      \r",
+							"\r",
+							"let responseSize = jsonData.length;\r",
+							"\r",
+							"console.log(responseSize);\r",
+							"\r",
+							"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"    \r",
+							"\r",
+							"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
+							"\r",
+							"    \r",
+							"\r",
+							"*/\r",
+							"\r",
+							"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
+							"\r",
+							"    pm.test(\"Unexpected number of items fetched\");\r",
+							"\r",
+							"else\r",
+							"\r",
+							"    pm.test(\"Expected number of items fetched\");\r",
+							"\r",
+							"/* \r",
+							"\r",
+							"     [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
+							"\r",
+							" */\r",
+							"\r",
+							"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
+							"\r",
+							"{ \r",
+							"\r",
+							"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
+							"\r",
+							"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
+							"\r",
+							"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
+							"\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"productId\":4646\r\n}\r\n ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Item",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add item to cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"productId\": 4643\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						""
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "UJGK6jOgon0NTFdYhtWqD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update quantity",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"quantity\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						},
+						{
+							"key": "itemId",
+							"value": "540606064"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replace product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"productId\": 4643,\r\n   \"quantity\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						},
+						{
+							"key": "itemId",
+							"value": "637647834"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item in cart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{cartId}}"
+						},
+						{
+							"key": "itemId",
+							"value": "540606064"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register API client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientName\" :  \"Postman ignacio authorization\",\r\n    \"clientEmail\" : \"ignacio.tejera@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api-clients",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api-clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+						"key": "Authorization",
+						"value": "Bearer{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"cartId\": \"UJGK6jOgon0NTFdYhtWqD\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/orders",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all orders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Autorization",
+						"value": "Bearer{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/orders",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Autorization",
+						"value": "Bearer{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerName\" :  \"Joe Doe\",\r\n    \"comment\" : \"Ignacio comment\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/orders/:orderId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "UsW1vs6x5QTpfq53g5z0Q"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error Add  two item to cart not in the API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n    \"productId\": 4646\r\n    },\r\n    {\r\n    \"productId\": 4641   \r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/carts/:cartId/items",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "UJGK6jOgon0NTFdYhtWqD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an order",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//get an order\r\n{\r\n   \"cartId\": \"UJGK6jOgon0NTFdYhtWqD\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/orders?orderId=UsW1vs6x5QTpfq53g5z0Q",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "orderId",
+							"value": "UsW1vs6x5QTpfq53g5z0Q"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an order random customerName",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"cartId\": \"UJGK6jOgon0NTFdYhtWqD\",\r\n   \"customerName\" :  \"{{$randomFullName}}\"\r\n   \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/orders?orderId=UsW1vs6x5QTpfq53g5z0Q",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "orderId",
+							"value": "UsW1vs6x5QTpfq53g5z0Q"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://simple-grocery-store-api.glitch.me"
+		},
+		{
+			"key": "accessToken",
+			"value": "your access token",
+			"type": "string"
+		},
+		{
+			"key": "cartId",
+			"value": "your cartId",
+			"type": "string"
+		}
+	]
+}
