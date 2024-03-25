@@ -174,7 +174,8 @@
 							"\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -182,7 +183,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseURL}}/products?category=coffee&results=20",
+					"raw": "{{baseURL}}/products?category=coffee&results=15",
 					"host": [
 						"{{baseURL}}"
 					],
@@ -196,7 +197,7 @@
 						},
 						{
 							"key": "results",
-							"value": "20"
+							"value": "15"
 						}
 					]
 				}
