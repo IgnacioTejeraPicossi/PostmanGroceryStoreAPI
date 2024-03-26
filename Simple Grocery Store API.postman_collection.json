@@ -183,7 +183,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseURL}}/products?category=coffee&results=15",
+					"raw": "{{baseURL}}/products?category=coffee&results=20",
 					"host": [
 						"{{baseURL}}"
 					],
@@ -197,7 +197,7 @@
 						},
 						{
 							"key": "results",
-							"value": "15"
+							"value": "20"
 						}
 					]
 				}
@@ -590,7 +590,8 @@
 							"\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -599,7 +600,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"productId\":4646\r\n}\r\n ",
+					"raw": "{\r\n   \"productId\":4643\r\n}\r\n ",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -664,41 +665,6 @@
 			"response": []
 		},
 		{
-			"name": "Add item to cart",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n   \"productId\": 4643\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/carts/:cartId/items/",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"carts",
-						":cartId",
-						"items",
-						""
-					],
-					"variable": [
-						{
-							"key": "cartId",
-							"value": "UJGK6jOgon0NTFdYhtWqD"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Update quantity",
 			"request": {
 				"method": "PATCH",
@@ -730,7 +696,7 @@
 						},
 						{
 							"key": "itemId",
-							"value": "540606064"
+							"value": "761927651"
 						}
 					]
 				}
@@ -974,7 +940,7 @@
 					"variable": [
 						{
 							"key": "cartId",
-							"value": "UJGK6jOgon0NTFdYhtWqD"
+							"value": "{{cartId}}"
 						}
 					]
 				}
