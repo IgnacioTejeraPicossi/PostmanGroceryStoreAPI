@@ -696,7 +696,7 @@
 						},
 						{
 							"key": "itemId",
-							"value": "761927651"
+							"value": "360094475"
 						}
 					]
 				}
@@ -704,7 +704,7 @@
 			"response": []
 		},
 		{
-			"name": "Replace product",
+			"name": "Replace product in cart",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -735,7 +735,7 @@
 						},
 						{
 							"key": "itemId",
-							"value": "637647834"
+							"value": "761927651"
 						}
 					]
 				}
@@ -801,6 +801,16 @@
 		{
 			"name": "Create an order",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -812,7 +822,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"cartId\": \"UJGK6jOgon0NTFdYhtWqD\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
+					"raw": "{\r\n   \"cartId\": \"MexwenMlhMzEMNNovZvO7\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1036,6 +1046,40 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Delete order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/orders/:orderId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "gb5V5_SnSpCmvPDXmxlzh"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -1074,6 +1118,11 @@
 		{
 			"key": "cartId",
 			"value": "your cartId",
+			"type": "string"
+		},
+		{
+			"key": "ItemId",
+			"value": "",
 			"type": "string"
 		}
 	]
