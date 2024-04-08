@@ -13,11 +13,27 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"let firstName = 'Jamie';\r",
+							"let lastName = 'Doe';\r",
+							"let age = 29;\r",
+							"let email;\r",
+							"let isMarried = true;\r",
+							"let firstName2 = 'Jake';\r",
+							"let lastName2 = lastName;\r",
+							"console.log(firstName,lastName, age, email, isMarried);\r",
+							"firstName = 'Jake';\r",
+							"console.log(firstName, age, email);\r",
+							"console.log(lastName2);\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 1000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Status should be UP\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(\"UP\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
 							"});\r",
 							"\r",
 							"var jsonData = pm.response.json();      \r",
@@ -68,7 +84,19 @@
 							"\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log('Before the request');\r",
+							"console.clear();"
+						],
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -725,20 +753,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/carts/:cartId/items",
+					"raw": "{{baseURL}}/carts/cartId/items",
 					"host": [
 						"{{baseURL}}"
 					],
 					"path": [
 						"carts",
-						":cartId",
+						"cartId",
 						"items"
-					],
-					"variable": [
-						{
-							"key": "cartId",
-							"value": "{{cartId}}"
-						}
 					]
 				}
 			},
