@@ -13,17 +13,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"let firstName = 'Jamie';\r",
-							"let lastName = 'Doe';\r",
-							"let age = 29;\r",
-							"let email;\r",
-							"let isMarried = true;\r",
-							"let firstName2 = 'Jake';\r",
-							"let lastName2 = lastName;\r",
-							"console.log(firstName,lastName, age, email, isMarried);\r",
-							"firstName = 'Jake';\r",
-							"console.log(firstName, age, email);\r",
-							"console.log(lastName2);\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
@@ -80,8 +69,114 @@
 							"\r",
 							"}\r",
 							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log('Before the request');\r",
+							"console.clear();"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/status",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API Status with javascript",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status should be UP\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(\"UP\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+							"});\r",
 							"\r",
 							"\r",
+							"\r",
+							"let firstName = 'Jamie';\r",
+							"let lastName = 'Doe';\r",
+							"let age = 29;\r",
+							"let email;\r",
+							"let isMarried = true;\r",
+							"let firstName2 = 'Jake';\r",
+							"let lastName2 = lastName;\r",
+							"let fullName = firstName +' '+lastName;\r",
+							"let fullName2 = `${firstName} ${lastName}`;\r",
+							"console.log(firstName,lastName, age, email, isMarried);\r",
+							"firstName = 'Jake';\r",
+							"console.log(firstName, age, email);\r",
+							"console.log(fullName);\r",
+							"console.log(fullName2);\r",
+							"\r",
+							"let introduction = `My name is ${firstName} and I am ${20+9} year old`;\r",
+							"console.log(introduction);\r",
+							"\r",
+							"const websiteUrl = 'http://item.no';\r",
+							"const secondInADay = 86400;\r",
+							"\r",
+							"Array = [firstName,lastName,age];\r",
+							"//Object = \r",
+							"const myCat = {\r",
+							"    name: 'Posty Paws',\r",
+							"    breed : 'European',\r",
+							"    color : 'gray'\r",
+							"}\r",
+							"\r",
+							"let sum = 27 + 43;\r",
+							"console.log(sum);\r",
+							"console.log(27 + 43);\r",
+							"age = age +1;\r",
+							"console.log(age);\r",
+							"age++;\r",
+							"console.log(age);\r",
+							"age--;\r",
+							"console.log(age);\r",
+							"let sum2 = 4+'4';\r",
+							"console.log(sum2);\r",
+							"let sum3 = 4+parseInt('4');\r",
+							"console.log(sum3);\r",
+							"console.log(parseInt('Jhon'));\r",
+							"console.log(parseInt('2.5')); //2\r",
+							"console.log(parseFloat('2.5')); //2.5\r",
+							"\r",
+							"{\r",
+							"    //some code, code blocks and variables\r",
+							"    let firstName = 'John';\r",
+							"    console.log(firstName);\r",
+							"    console.log(lastName);// global variabel in the block\r",
+							"\r",
+							"}\r",
+							"console.log(firstName);\r",
 							""
 						],
 						"type": "text/javascript",
@@ -753,14 +848,20 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/carts/cartId/items",
+					"raw": "{{baseURL}}/carts/:cartId/items",
 					"host": [
 						"{{baseURL}}"
 					],
 					"path": [
 						"carts",
-						"cartId",
+						":cartId",
 						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": ""
+						}
 					]
 				}
 			},
