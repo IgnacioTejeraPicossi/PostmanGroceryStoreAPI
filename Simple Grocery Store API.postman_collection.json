@@ -13,6 +13,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\",() => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
@@ -212,7 +215,49 @@
 							"function getRandomNumber(maxValue){\r",
 							"    return Math.floor(Math.random()* maxValue);\r",
 							"}\r",
-							"console.log(getRandomNumber(100));"
+							"console.log(getRandomNumber(100));\r",
+							"\r",
+							"const hello = function (){\r",
+							"    console.log('Hello');\r",
+							"}\r",
+							"hello();\r",
+							"\r",
+							"//Arrow functions\r",
+							"const hello2 = () =>{\r",
+							"    console.log('hello2');\r",
+							"}\r",
+							"hello2();\r",
+							"\r",
+							"const hello3 = (firstName) =>{\r",
+							"    console.log('hello3 '+ firstName);\r",
+							"}\r",
+							"hello3('Jamie');\r",
+							"\r",
+							"const add3 = (a,b) => a + b;\r",
+							"\r",
+							"console.log(add3(32,45));\r",
+							"\r",
+							"//Callback functions\r",
+							"const announceBreakfast = () =>{\r",
+							"    console.log('Breakfast is ready!');\r",
+							"}\r",
+							"\r",
+							"setTimeout(() => console.log('Breakfast is ready!'), 5000)\r",
+							"setTimeout(announceBreakfast, 5000);\r",
+							"console.log('Serving cofee');\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"/*\r",
+							"function makeBreakfast (callbackFunction){\r",
+							"    console.log('Starting to make Breakfast ');\r",
+							"    callbackFunction(); \r",
+							"    console.log('Serving cofee');\r",
+							"}\r",
+							"*/\r",
+							" \r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -654,6 +699,7 @@
 							"});\r",
 							"\r",
 							"var jsonData = pm.response.json();      \r",
+							"pm.environment.set(\"cartId\", jsonData.cartId.cartId);\r",
 							"\r",
 							"let responseSize = jsonData.length;\r",
 							"\r",
@@ -701,7 +747,8 @@
 							"\r",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -722,6 +769,20 @@
 		},
 		{
 			"name": "Get cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",() => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -746,6 +807,20 @@
 		},
 		{
 			"name": "Get cart items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",() => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -771,6 +846,20 @@
 		},
 		{
 			"name": "Example",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",() => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -895,7 +984,7 @@
 					"variable": [
 						{
 							"key": "cartId",
-							"value": ""
+							"value": "{{cartId}}"
 						}
 					]
 				}
@@ -904,6 +993,20 @@
 		},
 		{
 			"name": "Get Item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",() => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -941,6 +1044,20 @@
 		},
 		{
 			"name": "Update quantity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\",() => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -971,7 +1088,7 @@
 						},
 						{
 							"key": "itemId",
-							"value": "360094475"
+							"value": "{{ItemId}}"
 						}
 					]
 				}
@@ -980,6 +1097,20 @@
 		},
 		{
 			"name": "Replace product in cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\",() => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -1010,7 +1141,7 @@
 						},
 						{
 							"key": "itemId",
-							"value": "761927651"
+							"value": "{{ItemId}}"
 						}
 					]
 				}
@@ -1040,7 +1171,7 @@
 						},
 						{
 							"key": "itemId",
-							"value": "540606064"
+							"value": "664790249"
 						}
 					]
 				}
@@ -1076,16 +1207,6 @@
 		{
 			"name": "Create an order",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{accessToken}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "POST",
 				"header": [
 					{
@@ -1191,7 +1312,7 @@
 					"variable": [
 						{
 							"key": "orderId",
-							"value": "UsW1vs6x5QTpfq53g5z0Q"
+							"value": "gb5V5_SnSpCmvPDXmxlzh"
 						}
 					]
 				}
