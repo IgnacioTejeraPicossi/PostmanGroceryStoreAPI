@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "57cfc055-a0ca-44ad-b1e2-eae12d85254e",
+		"_postman_id": "a0db20e3-b941-4178-b9e2-57227b94da10",
 		"name": "federation-service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12809357"
+		"_exporter_id": "29105816"
 	},
 	"item": [
 		{
@@ -25,7 +25,7 @@
 									"",
 									"pm.test(\"Body matches string\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].type).to.eql(\"EVENT\");",
+									"    pm.expect(jsonData[0].type).to.eql(\"ARENA_EVENT\");",
 									"    pm.expect(jsonData[1].alias).to.eql(\"5dc997fe85879d1574f93c1d\");",
 									"    //pm.expect(jsonData[0].defaultConfig.url).to.eql(\"https://dev.axiell.io/api/event/latest/api/customers/*\");",
 									"    pm.expect(jsonData[3].type).to.eql(\"SRU\");",
@@ -195,7 +195,7 @@
 									"",
 									"pm.test(\"Body matches string\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].type).to.eql(\"EVENT\");",
+									"    pm.expect(jsonData[0].type).to.eql(\"ARENA_EVENT\");",
 									"    pm.expect(jsonData[1].alias).to.eql(\"5dc997fe85879d1574f93c1d\");",
 									"    //pm.expect(jsonData[0].defaultConfig.url).to.eql(\"https://dev.axiell.io/api/event/latest/api/customers/*\");",
 									"    pm.expect(jsonData[3].type).to.eql(\"SRU\");",
@@ -368,9 +368,52 @@
 									"    pm.expect(jsonData.alias).to.eql(\"61278805902e16550a956774\");\r",
 									"   pm.expect(jsonData.defaultConfig.url).to.eql(\"https://test.axiell.io/api/event/rc/api/customers/*\");\r",
 									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();      \r",
+									"let responseSize = jsonData.length;\r",
+									"console.log(responseSize);\r",
+									"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+									"/* \r",
+									"    \r",
+									"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
+									"    \r",
+									"*/\r",
+									"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
+									"    pm.test(\"Unexpected number of items fetched\");\r",
+									"else\r",
+									"    pm.test(\"Expected number of items fetched\");\r",
+									"\r",
+									"\r",
+									"/* \r",
+									"\r",
+									"    [+] Check for HSTS: An attacker can carry out effective pharming, phishing, and man-in-the-middle attacks if the HTTPS server incorrectly implements Strict Transport Security. HSTS prevents visitors from making unencrypted HTTP connections to a server.\r",
+									"\r",
+									"*/\r",
+									"/* Error\r",
+									"pm.test(\"Strict-Transport-Security is present\", function () {\r",
+									"    pm.response.to.have.header(\"strict-transport-security\");\r",
+									"});\r",
+									"*/\r",
+									"\r",
+									"\r",
+									"/* \r",
+									"\r",
+									"    [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
+									"\r",
+									"*/\r",
+									"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
+									"{ \r",
+									"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
+									"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
+									"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
+									"}\r",
+									"\r",
+									"\r",
+									"\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -585,12 +628,14 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
+									" \r",
 									"\r",
 									"pm.test(\"Response time is less than 1000ms\", function () {\r",
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -935,9 +980,20 @@
 									"});\r",
 									"pm.test(\"Response time is less than 1000ms\", function () {\r",
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
-									"});"
+									"});var template = `\r",
+									"<p>Error: {{response.apierror.message}}</p>\r",
+									"<p>Status: {{response.apierror.status}}</p>\r",
+									"<p>Debug Message: {{response.apierror.debugMessage}}</p>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return {response: pm.response.json()}\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1583,7 +1639,41 @@
 									"});",
 									"pm.test(\"Response time is less than 1000ms\", function () {",
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
-									"});"
+									"});var template = `",
+									"<style type=\"text/css\">",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+									"    .tftable tr {background-color:#ffffff;}",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+									"    .tftable tr:hover {background-color:#e0ffff;}",
+									"</style>",
+									"",
+									"<table class=\"tftable\" border=\"1\">",
+									"    <tr>",
+									"        <th>ID</th>",
+									"        <th>Name</th>",
+									"        <th>Alias</th>",
+									"        <th>Description</th>",
+									"        <th>Source ID</th>",
+									"    </tr>",
+									"    ",
+									"    {{#each response}}",
+									"        <tr>",
+									"            <td>{{id}}</td>",
+									"            <td>{{name}}</td>",
+									"            <td>{{alias}}</td>",
+									"            <td>{{description}}</td>",
+									"            <td>{{customerSources.0.sourceId}}</td>",
+									"        </tr>",
+									"    {{/each}}",
+									"</table>",
+									"`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    return {response: pm.response.json()}",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
 								],
 								"type": "text/javascript"
 							}
