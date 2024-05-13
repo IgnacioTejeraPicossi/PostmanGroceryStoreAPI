@@ -1606,179 +1606,225 @@
 			"name": "Missing authentication",
 			"item": [
 				{
-					"name": "Create an order - missing header",
-					"event": [
+					"name": "Missing header",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 401\",() => {\r",
-									"    pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Error message\",() => {\r",
-									"    const response = pm.response.json();\r",
-									"    pm.expect(response.error).to.eql('Missing Authorization header.');\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"cartId\": \"MexwenMlhMzEMNNovZvO7\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/orders",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create an order - Invalid tokenCopy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Error message\",() => {\r",
-									"    const response = pm.response.json();\r",
-									"    pm.expect(response.error).to.eql('Invalid bearer token.');\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer 2c07aa77783e2302e6200ed1560268d46f7aa241c576b92d8de8e978304f08a6",
-								"uuid": "9524a8d7-868b-4b4a-9916-9b5a72dd6a9e"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"cartId\": \"MexwenMlhMzEMNNovZvO7\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/orders",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all orders - Missing header",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Error message\",() => {\r",
-									"    const response = pm.response.json();\r",
-									"    pm.expect(response.error).to.eql('Missing Authorization header.');\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/orders",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all orders - Invalid TokenCopy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Error message\",() => {\r",
-									"    const response = pm.response.json();\r",
-									"    pm.expect(response.error).to.eql('Invalid bearer token.');\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"name": "Create an order - missing header",
+							"event": [
 								{
-									"key": "token",
-									"value": "{{accessToken}}",
-									"type": "string"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Autorization",
-								"value": "Bearer invalidtoken",
-								"uuid": "78ca54e4-8025-4e0f-9071-79d98f4e9b50"
-							}
-						],
-						"url": {
-							"raw": "{{baseURL}}/orders",
-							"host": [
-								"{{baseURL}}"
 							],
-							"path": [
-								"orders"
-							]
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"cartId\": \"MexwenMlhMzEMNNovZvO7\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/orders",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all orders - Missing header",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/orders",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"pm.test(\"Error message\",() => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.error).to.eql('Missing Authorization header.');\r",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Invalid token",
+					"item": [
+						{
+							"name": "Create an order - Invalid tokenCopy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer 2c07aa77783e2302e6200ed1560268d46f7aa241c576b92d8de8e978304f08a6",
+										"uuid": "9524a8d7-868b-4b4a-9916-9b5a72dd6a9e"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"cartId\": \"MexwenMlhMzEMNNovZvO7\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/orders",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all orders - Invalid TokenCopy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Autorization",
+										"value": "Bearer invalidtoken",
+										"uuid": "78ca54e4-8025-4e0f-9071-79d98f4e9b50"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/orders",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"pm.test(\"Error message\",() => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.error).to.eql('Invalid bearer token.');\r",
+									"});"
+								]
+							}
+						}
+					]
 				}
 			],
 			"event": [
@@ -1803,6 +1849,170 @@
 							"});"
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Invalid inputs",
+			"item": [
+				{
+					"name": "Get all products - Invalid category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"pm.test(\"Error message\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.error).to.have.string(\"Invalid value for query parameter 'category'.\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?category=invalid-category",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "invalid-category"
+								},
+								{
+									"key": "results",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "available",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all products - Results > maximum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.error).to.have.eql(\"Invalid value for query parameter 'results'. Cannot be greater than 20.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?results=21",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "coffee",
+									"disabled": true
+								},
+								{
+									"key": "results",
+									"value": "21"
+								},
+								{
+									"key": "available",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						},
+						"description": "\n### GET /products\n\nThis endpoint retrieves a list of products with the option to specify the number of results.\n\n#### Request\n- Method: GET\n- Endpoint: {{baseURL}}/products\n- Query Parameters:\n  - results (optional, number): Specifies the number of results to be returned.\n\n#### Response\n- Status: 400\n- Content-Type: application/json\n- Body: \n  ```json\n  {\n    \"error\": \"\"\n  }\n  ```\n\n#### JSON Schema\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"error\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\"error\"]\n}\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all products - Results < minimum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Test to verify that the 'results' query parameter must be greater than 0\r",
+									"pm.test(\"Query parameter 'results' must be greater than 0\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.error).to.eql(\"Invalid value for query parameter 'results'. Must be greater than 0.\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?results=-1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "coffee",
+									"disabled": true
+								},
+								{
+									"key": "results",
+									"value": "-1"
+								},
+								{
+									"key": "available",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						},
+						"description": "The endpoint makes an HTTP GET request to retrieve product data with a query parameter 'results' set to -1.\n\n### Response\n\nThe response returns a status code of 400 and a JSON object with an 'error' key.\n\n``` json\n{\n    \"error\": \"\"\n}\n\n ```"
+					},
+					"response": []
 				}
 			]
 		}
