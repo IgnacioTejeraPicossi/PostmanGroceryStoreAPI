@@ -19,6 +19,50 @@
 									"pm.test(\"Status code is 200\",() => {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
+									"const name = 'Jake';\r",
+									"pm.collectionVariables.set('firstName', name);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log('Before the request');\r",
+									"console.clear();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/status",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API Status Security",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",() => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -303,53 +347,27 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
+									"\r",
 									"pm.test(\"Response time is less than 1000ms\", function () {\r",
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 									"});\r",
 									"\r",
-									"var jsonData = pm.response.json();      \r",
+									"pm.test('At least one available product exists', () => {\r",
+									"    const response = pm.response.json();\r",
 									"\r",
-									"let responseSize = jsonData.length;\r",
+									"    pm.expect(response).to.be.an('array');\r",
+									"    pm.expect(response.length).to.be.above(0);\r",
 									"\r",
-									"console.log(responseSize);\r",
+									"    const product = response[0];\r",
+									"    pm.expect(product).to.be.an('object');\r",
+									"    pm.expect(product).to.haveOwnProperty('id');\r",
+									"    pm.expect(product.id).to.be.a('number');\r",
+									"    pm.expect(product.inStock).to.be.true;\r",
 									"\r",
-									"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+									"    pm.collectionVariables.set('productId',response[0].id);\r",
+									"});\r",
 									"\r",
-									"/* \r",
 									"\r",
-									"    \r",
-									"\r",
-									"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
-									"\r",
-									"    \r",
-									"\r",
-									"*/\r",
-									"\r",
-									"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
-									"\r",
-									"    pm.test(\"Unexpected number of items fetched\");\r",
-									"\r",
-									"else\r",
-									"\r",
-									"    pm.test(\"Expected number of items fetched\");\r",
-									"\r",
-									"/* \r",
-									"\r",
-									"     [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
-									"\r",
-									" */\r",
-									"\r",
-									"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
-									"\r",
-									"{ \r",
-									"\r",
-									"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
-									"\r",
-									"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
-									"\r",
-									"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
-									"\r",
-									"}\r",
 									"\r",
 									"var template = ` \r",
 									"    <table bgcolor=\"#FFFFFF\">\r",
@@ -389,7 +407,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/products?category=coffee&results=20&available=true",
+							"raw": "{{baseURL}}/products?category=coffee&available=true",
 							"host": [
 								"{{baseURL}}"
 							],
@@ -403,7 +421,8 @@
 								},
 								{
 									"key": "results",
-									"value": "20"
+									"value": "20",
+									"disabled": true
 								},
 								{
 									"key": "available",
@@ -691,6 +710,20 @@
 				},
 				{
 					"name": "Get single product Query +path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",() => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -712,7 +745,7 @@
 							"variable": [
 								{
 									"key": "productId",
-									"value": "4643",
+									"value": "{{productId}}",
 									"uuid": "b00a7f16-e4f8-471a-9e72-66209613e1c1"
 								}
 							]
@@ -1003,7 +1036,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"productId\":4643\r\n}\r\n ",
+							"raw": "{\r\n   \"productId\":{{productId}}\r\n}\r\n ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2060,6 +2093,14 @@
 			"key": "ItemId",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "firstName",
+			"value": ""
+		},
+		{
+			"key": "productId",
+			"value": ""
 		}
 	]
 }
