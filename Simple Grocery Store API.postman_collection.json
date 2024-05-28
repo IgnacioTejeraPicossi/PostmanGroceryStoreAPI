@@ -1624,7 +1624,7 @@
 							"variable": [
 								{
 									"key": "orderId",
-									"value": "gb5V5_SnSpCmvPDXmxlzh"
+									"value": "{{orderId}}"
 								}
 							]
 						}
