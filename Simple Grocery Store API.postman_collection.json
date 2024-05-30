@@ -1223,7 +1223,9 @@
 								"exec": [
 									"pm.test(\"Status code is 200\",() => {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1338,22 +1340,11 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{accessToken}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Autorization",
-								"value": "Bearer{{accessToken}}",
-								"type": "text"
+								"value": "Bearer{{accessToken}}"
 							}
 						],
 						"url": {
