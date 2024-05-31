@@ -25,7 +25,9 @@
 									"\r",
 									"var jsonData = pm.response.json();      \r",
 									"let responseSize = jsonData.length;\r",
-									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    pm.response.to.have.body(\"response_body_string\");\r",
+									"});\r",
 									"console.log(responseSize);\r",
 									"\r",
 									"console.log(parseInt(pm.environment.get(\"itemListValue\")));\r",
@@ -1561,6 +1563,9 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
 											"\r",
 											"\r",
 											""
