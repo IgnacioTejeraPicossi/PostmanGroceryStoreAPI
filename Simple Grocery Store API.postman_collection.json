@@ -908,9 +908,14 @@
 									"pm.test('Response has valid itemId', () => {\r",
 									"    var response = pm.response.json();      \r",
 									"    pm.expect(response).to.be.an('object');  // Added missing quotes around 'object'\r",
+									"    pm.expect(response).to.be.true;\r",
+									"    pm.expect(response).to.be.a('number');\r",
 									"    pm.expect(response).to.haveOwnProperty('itemId');\r",
 									"\r",
+									"    pm.collectionVariables.set(\"lastAddedItemId\", response.itemId);\r",
+									"\r",
 									"    pm.collectionVariables.set(\"itemId\", response.itemId);\r",
+									"\r",
 									"});\r",
 									"\r",
 									"\r",
@@ -1112,6 +1117,21 @@
 				},
 				{
 					"name": "Delete item in cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\",() => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
