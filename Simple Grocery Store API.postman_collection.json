@@ -606,6 +606,12 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"\r",
+									"//\r",
+									"console.log(pm.collectionVariables.set('productId', productId));\r",
+									"//Getting Postman variables from scripts\r",
+									"console.log(pm.collectionVariables.get('productId'));\r",
+									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -653,6 +659,13 @@
 								],
 								"type": "text/javascript",
 								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
 							}
 						}
 					],
