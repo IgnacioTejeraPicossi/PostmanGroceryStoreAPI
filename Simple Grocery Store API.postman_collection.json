@@ -607,10 +607,13 @@
 							"script": {
 								"exec": [
 									"\r",
-									"//\r",
-									"console.log(pm.collectionVariables.set('productId', productId));\r",
+									"//Assignment data in in Postman Variables\r",
+									"//console.log(pm.collectionVariables.set('productId', productId));\r",
+									"\r",
 									"//Getting Postman variables from scripts\r",
 									"console.log(pm.collectionVariables.get('productId'));\r",
+									"\r",
+									"\r",
 									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -621,6 +624,11 @@
 									"\r",
 									"var jsonData = pm.response.json();\r",
 									"    //console.log(jsonData.id);\r",
+									"\r",
+									"//Getting Postman variables from scripts to test retrieve riktig product\r",
+									"pm.test(\"Correct product name was retrieved\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get('productId'));\r",
+									"});\r",
 									"\r",
 									"pm.test(\"Body matches string\", function () {\r",
 									" \r",
@@ -664,8 +672,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -684,7 +695,7 @@
 							"variable": [
 								{
 									"key": "productId",
-									"value": "4643"
+									"value": "{{productId}}"
 								}
 							]
 						}
