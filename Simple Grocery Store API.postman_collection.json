@@ -2006,6 +2006,60 @@
 						"description": "The endpoint makes an HTTP GET request to retrieve product data with a query parameter 'results' set to -1.\n\n### Response\n\nThe response returns a status code of 400 and a JSON object with an 'error' key.\n\n``` json\n{\n    \"error\": \"\"\n}\n\n ```"
 					},
 					"response": []
+				},
+				{
+					"name": "Get all products - Results = 0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Test to verify that the 'results' query parameter must be greater than 0\r",
+									"pm.test(\"Query parameter 'results' must be greater than 0\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.error).to.eql(\"Invalid value for query parameter 'results'. Must be greater than 0.\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?results=0",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "coffee",
+									"disabled": true
+								},
+								{
+									"key": "results",
+									"value": "0"
+								},
+								{
+									"key": "available",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						},
+						"description": "The endpoint makes an HTTP GET request to retrieve product data with a query parameter 'results' set to -1.\n\n### Response\n\nThe response returns a status code of 400 and a JSON object with an 'error' key.\n\n``` json\n{\n    \"error\": \"\"\n}\n\n ```"
+					},
+					"response": []
 				}
 			]
 		}
