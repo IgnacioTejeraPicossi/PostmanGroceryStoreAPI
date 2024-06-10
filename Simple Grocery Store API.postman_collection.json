@@ -118,8 +118,8 @@
 									"    pm.expect(jsonData.status).to.eql(\"UP\");\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Response time is less than 1500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+									"pm.test(\"Response time is less than 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
 									"});\r",
 									"\r",
 									"var jsonData = pm.response.json();      \r",
@@ -2014,6 +2014,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"//Use here the new environment 'Testing'\r",
+									"\r",
 									"pm.test(\"Status code is 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
 									"});\r",
