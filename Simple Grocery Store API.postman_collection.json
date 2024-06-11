@@ -2014,17 +2014,22 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"//Use here the new environment 'Testing'\r",
-									"\r",
-									"pm.test(\"Status code is 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"// Test to verify that the 'results' query parameter must be greater than 0\r",
-									"pm.test(\"Query parameter 'results' must be greater than 0\", function () {\r",
-									"    const response = pm.response.json();\r",
-									"    pm.expect(response.error).to.eql(\"Invalid value for query parameter 'results'. Must be greater than 0.\");\r",
-									"});"
+									"//Use here the new environment 'Testing'",
+									"",
+									"console.log(pm.environment.name);",
+									"",
+									"if (pm.environment.name === 'Testing'){",
+									"    pm.test(\"Status code is 400\", function () {",
+									"        pm.response.to.have.status(400);",
+									"    });",
+									"",
+									"    // Test to verify that the 'results' query parameter must be greater than 0",
+									"    pm.test(\"Query parameter 'results' must be greater than 0\", function () {",
+									"        const response = pm.response.json();",
+									"        pm.expect(response.error).to.eql(\"Invalid value for query parameter 'results'. Must be greater than 0.\");",
+									"    });",
+									"}",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
