@@ -1294,6 +1294,119 @@
 					"response": []
 				},
 				{
+					"name": "Create an order Security test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\",() => {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"pm.test('Order was created', () => {\r",
+									"    var response = pm.response.json();      \r",
+									"    pm.expect(response).to.be.an('object');  // Added missing quotes around 'object'\r",
+									"    pm.expect(response.created).to.be.true;\r",
+									"    pm.expect(response.orderId).to.be.a('string');\r",
+									"    pm.expect(response).to.haveOwnProperty('orderId');\r",
+									"\r",
+									"    pm.collectionVariables.set(\"orderId\", response.orderId);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();      \r",
+									"\r",
+									"let responseSize = jsonData.length;\r",
+									"\r",
+									"console.log(responseSize);\r",
+									"\r",
+									"console.log(parseInt(pm.environment.get(\"itemListValue\")))\r",
+									"\r",
+									"/* \r",
+									"\r",
+									"    \r",
+									"\r",
+									"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. \r",
+									"\r",
+									"    \r",
+									"\r",
+									"*/\r",
+									"\r",
+									"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))\r",
+									"\r",
+									"    pm.test(\"Unexpected number of items fetched\");\r",
+									"\r",
+									"else\r",
+									"\r",
+									"    pm.test(\"Expected number of items fetched\");\r",
+									"\r",
+									"/* \r",
+									"\r",
+									"     [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.\r",
+									"\r",
+									" */\r",
+									"\r",
+									"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))\r",
+									"\r",
+									"{ \r",
+									"\r",
+									"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");\r",
+									"\r",
+									"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))\r",
+									"\r",
+									"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");\r",
+									"\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer{{accessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"cartId\": \"MexwenMlhMzEMNNovZvO7\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/orders",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all orders",
 					"event": [
 						{
