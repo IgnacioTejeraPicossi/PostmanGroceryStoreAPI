@@ -27,7 +27,8 @@
 									"pm.environment.set('firstName', 'Jamie');\r",
 									"pm.environment.unset('firstName');\r",
 									"console.log(pm.environment.get('firstName'));\r",
-									""
+									"\r",
+									"console.log(pm.variables.get('baseURL'));"
 								],
 								"type": "text/javascript",
 								"packages": {}
