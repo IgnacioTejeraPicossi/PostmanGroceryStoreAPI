@@ -29,8 +29,15 @@
 									"console.log(pm.environment.get('firstName'));\r",
 									"\r",
 									"console.log(pm.variables.get('baseURL'));\r",
+									"\r",
 									"//Geting globals variables\r",
-									"console.log(pm.globals.get('firstName'));"
+									"pm.globals.set('firstName','Jamie');\r",
+									"\r",
+									"//pm.globals.unset('firstName');\r",
+									"\r",
+									"console.log(pm.globals.get('firstName'));\r",
+									"\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
