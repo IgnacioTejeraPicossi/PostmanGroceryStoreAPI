@@ -15,6 +15,9 @@
 						"exec": [
 							"pm.test(\"Status code is 200\",() => {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
+							"    pm.response.to.have.status(401);\r",
 							"});"
 						],
 						"type": "text/javascript",
