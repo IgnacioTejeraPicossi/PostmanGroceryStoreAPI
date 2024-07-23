@@ -18,6 +18,9 @@
 							"});\r",
 							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -65,6 +68,9 @@
 							"});\r",
 							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -115,6 +121,9 @@
 							"});\r",
 							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -246,6 +255,26 @@
 		},
 		{
 			"name": "Create card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\",() => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -292,6 +321,9 @@
 							"});\r",
 							"pm.test(\"Status code is 400 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -328,6 +360,9 @@
 							"});\r",
 							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -380,6 +415,9 @@
 							"});\r",
 							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 							"});"
 						],
 						"type": "text/javascript",
