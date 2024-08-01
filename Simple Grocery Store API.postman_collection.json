@@ -1580,6 +1580,85 @@
 					"response": []
 				},
 				{
+					"name": "Get  single order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\",() => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('Error message contains the deleted order id', () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(product).to.haveOwnProperty('error');\r",
+									"    console.log(pm.collectionVariables.get('itemId'));\r",
+									"    pm.expect(response.error).to.contain(pm.collectionVariables.get('orderId'));\r",
+									"    pm.expect(response.error).to.include(pm.collectionVariables.get('orderId'));\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//get an order\r\n{\r\n   \"cartId\": \"UJGK6jOgon0NTFdYhtWqD\",\r\n   \"customerName\" :  \"John Doe\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/orders/:orderId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"orders",
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "{{orderId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get an order random customerName",
 					"event": [
 						{
