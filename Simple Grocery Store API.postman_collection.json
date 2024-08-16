@@ -715,6 +715,131 @@
 					"response": []
 				},
 				{
+					"name": "Get all products PostBot Security",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"var template = `",
+									"<style type=\"text/css\">",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+									"    .tftable tr {background-color:#ffffff;}",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+									"    .tftable tr:hover {background-color:#e0ffff;}",
+									"</style>",
+									"",
+									"<table class=\"tftable\" border=\"1\">",
+									"    <tr>",
+									"        <th>ID</th>",
+									"        <th>Category</th>",
+									"        <th>Name</th>",
+									"        <th>In Stock</th>",
+									"    </tr>",
+									"    ",
+									"    {{#each response}}",
+									"        <tr>",
+									"            <td>{{id}}</td>",
+									"            <td>{{category}}</td>",
+									"            <td>{{name}}</td>",
+									"            <td>{{inStock}}</td>",
+									"        </tr>",
+									"    {{/each}}",
+									"</table>",
+									"`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    return {response: pm.response.json()}",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									"var jsonData = pm.response.json();      ",
+									"",
+									"let responseSize = jsonData.length;",
+									"",
+									"console.log(responseSize);",
+									"",
+									"console.log(parseInt(pm.environment.get(\"itemListValue\")))",
+									"",
+									"/* ",
+									"",
+									"    ",
+									"",
+									"    [+] Check for Parameter Tampering: An attacker can manipulate parameters sent in API requests to exploit the backend processing. Conceptually, when the attacker changes the input value from x to y and the server processes it, then the service will be vulnerable to parameter tampering. ",
+									"",
+									"    ",
+									"",
+									"*/",
+									"",
+									"if(responseSize === parseInt(pm.environment.get(\"itemListValue\")))",
+									"",
+									"    pm.test(\"Unexpected number of items fetched\");",
+									"",
+									"else",
+									"",
+									"    pm.test(\"Expected number of items fetched\");",
+									"",
+									"/* ",
+									"",
+									"     [+] Check for Misconfigured CORS: CORS is a header set by the web server. It controls exactly which domains are allowed to send requests to it. A misconfigured CORS can allow a domain controlled by a malicious user to send requests.",
+									"",
+									" */",
+									"",
+									"if(pm.response.headers.get(\"Access-Control-Allow-Origin\"))",
+									"",
+									"{ ",
+									"",
+									"    let headerValue = pm.response.headers.get(\"Access-Control-Allow-Origin\");",
+									"",
+									"    if(headerValue === \"*\" || headerValue === pm.environment.get(\"origin\"))",
+									"",
+									"    pm.test(\"Misconfigured Cross-Origin Resource Sharing\");",
+									"",
+									"}",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products?category=coffee&results=20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "coffee"
+								},
+								{
+									"key": "results",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get single product Path",
 					"event": [
 						{
