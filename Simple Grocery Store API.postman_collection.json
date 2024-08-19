@@ -1043,7 +1043,8 @@
 									"});\r",
 									"pm.test(\"Response time is less than 1000ms\", function () {\r",
 									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
-									"});"
+									"});\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1766,7 +1767,7 @@
 							"variable": [
 								{
 									"key": "orderId",
-									"value": "gb5V5_SnSpCmvPDXmxlzh"
+									"value": "{{orderId}}"
 								}
 							]
 						}
