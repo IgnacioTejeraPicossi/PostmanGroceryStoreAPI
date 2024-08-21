@@ -19,6 +19,11 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
+							"pm.test(\"Response time is less than 5000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"",
 							"// Validate that the response is json object",
 							"pm.test(\"Response is a json object\", function () {",
 							"    pm.expect(pm.response.json()).to.be.an('object');",
@@ -40,7 +45,8 @@
 							"});",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
