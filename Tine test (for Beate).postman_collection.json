@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "77033f46-70ad-4b45-a5e7-c644ad5c404f",
+		"name": "Tine test (for Beate)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29105816"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://qaapp10008.tine.no:8303/api/avregning/page?aar=2023&periode=5&size=2&page=0",
+					"protocol": "http",
+					"host": [
+						"qaapp10008",
+						"tine",
+						"no"
+					],
+					"port": "8303",
+					"path": [
+						"api",
+						"avregning",
+						"page"
+					],
+					"query": [
+						{
+							"key": "aar",
+							"value": "2023"
+						},
+						{
+							"key": "periode",
+							"value": "5"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "avregning",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://qaapp10008.tine.no:8303/api/avregning?aar=2023&periode=8&produsentnr=4601042031",
+					"protocol": "http",
+					"host": [
+						"qaapp10008",
+						"tine",
+						"no"
+					],
+					"port": "8303",
+					"path": [
+						"api",
+						"avregning"
+					],
+					"query": [
+						{
+							"key": "aar",
+							"value": "2023"
+						},
+						{
+							"key": "periode",
+							"value": "8"
+						},
+						{
+							"key": "produsentnr",
+							"value": "4601042031"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
