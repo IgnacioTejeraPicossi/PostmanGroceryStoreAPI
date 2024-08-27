@@ -56,9 +56,13 @@
 							"pm.test(\"A name is returned\", () => {",
 							"    pm.expect(pm.response.json()).to.have.property('name');",
 							"    pm.expect(pm.response.json().name).to.be.a('string');",
-							"})"
+							"})",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
