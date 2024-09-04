@@ -2606,7 +2606,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://valentines-book-list.glitch.me/books/lists?api-key=8fhg93xkjd38fhg834jdfgjd&list=non-fiction",
+							"raw": "https://valentines-book-list.glitch.me/books/lists?api-key=8fhg93xkjd38fhg834jdfgjd&list=non-fiction&page=2",
 							"protocol": "https",
 							"host": [
 								"valentines-book-list",
@@ -2625,6 +2625,10 @@
 								{
 									"key": "list",
 									"value": "non-fiction"
+								},
+								{
+									"key": "page",
+									"value": "2"
 								}
 							]
 						}
@@ -2666,7 +2670,13 @@
 					"name": "Valentine's Book List options (info fra Headers)",
 					"request": {
 						"method": "OPTIONS",
-						"header": [],
+						"header": [
+							{
+								"key": "User-Agent",
+								"value": "",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "https://valentines-book-list.glitch.me/books/lists?api-key=8fhg93xkjd38fhg834jdfgjd&list=non-fiction",
 							"protocol": "https",
@@ -2742,7 +2752,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://valentines-book-list.glitch.me/books/lists?api-key=8fhg93xkjd38fhg834jdfgjd&list=non-fiction",
+							"raw": "https://valentines-book-list.glitch.me/books/lists?api-key=8fhg93xkjd38fhg834jdfgjd&list=fiction",
 							"protocol": "https",
 							"host": [
 								"valentines-book-list",
@@ -2760,7 +2770,7 @@
 								},
 								{
 									"key": "list",
-									"value": "non-fiction"
+									"value": "fiction"
 								}
 							]
 						}
