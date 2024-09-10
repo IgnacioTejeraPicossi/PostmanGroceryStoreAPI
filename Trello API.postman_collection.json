@@ -527,6 +527,11 @@
 		{
 			"key": "trelloToken",
 			"value": "ATTAa15f62d4e66e5e9daff77132c3167b324cb42a4c299841f927b58091a9a4477d7127A12F"
+		},
+		{
+			"key": "Test variabel",
+			"value": "Ignacio test",
+			"type": "string"
 		}
 	]
 }
