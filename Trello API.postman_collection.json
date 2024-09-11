@@ -198,6 +198,9 @@
 							"});\r",
 							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 							"});"
 						],
 						"type": "text/javascript",
