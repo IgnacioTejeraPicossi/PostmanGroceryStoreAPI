@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "f6cac6eb-8ea6-4673-a57c-7d977fb84a8e",
+		"name": "Fiskedirektoratet local test (for Øyvind)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29105816"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4848/repositoryId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4848",
+					"path": [
+						"repositoryId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4848/repo/snapshot/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4848",
+					"path": [
+						"repo",
+						"snapshot",
+						"list"
+					],
+					"query": [
+						{
+							"key": "aar",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "periode",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "produsentnr",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4848/repo/snapshot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4848",
+					"path": [
+						"repo",
+						"snapshot"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "Basic bXl1c2VybmFtZTpteXNlY3JldHBhc3N3b3Jk",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
