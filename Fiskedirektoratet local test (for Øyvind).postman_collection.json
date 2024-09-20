@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "New Request",
+			"name": "Get localhost:4848",
 			"event": [
 				{
 					"listen": "test",
@@ -34,6 +34,39 @@
 					"port": "4848",
 					"path": [
 						"repositoryId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get localhost:8080",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
 					]
 				}
 			},
@@ -110,22 +143,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get localhost:2609",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:2609",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2609"
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
-		"type": "apikey",
-		"apikey": [
-			{
-				"key": "value",
-				"value": "Basic bXl1c2VybmFtZTpteXNlY3JldHBhc3N3b3Jk",
-				"type": "string"
-			},
-			{
-				"key": "key",
-				"value": "Authorization",
-				"type": "string"
-			}
-		]
+		"type": "basic"
 	},
 	"event": [
 		{
