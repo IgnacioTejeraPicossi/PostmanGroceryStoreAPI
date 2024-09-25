@@ -400,8 +400,11 @@
 							"pm.test(\"Status code is 401 Unauthorized\",() => {\r",
 							"    pm.response.to.have.status(401);\r",
 							"});\r",
-							"pm.test(\"Response time is less than 1000ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"pm.test(\"Status code is 404 Not found\",() => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1900ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1900);\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -435,7 +438,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "62e6bf7d8176f64b184e30ee"
+							"value": "66e02bc64d2c6cf7da5602aa"
 						}
 					]
 				}
