@@ -822,12 +822,12 @@
 					"script": {
 						"exec": [
 							"// Validate that the response code should be 200\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response time is less than 1800ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(1800);\r",
+							"pm.test(\"Response time is less than 3000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Content-Type is present\", function () {\r",
@@ -856,22 +856,22 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"id\": \"string\",\r\n  \"raw_input\": \"string\",\r\n  \"raw_output\": \"string\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1efe7a3b-9bf4-4420-b90c-c03e144782df"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "{{baseUrl}}api/data/examples",
+					"raw": "{{baseUrl}}api/notices-with-scores",
 					"host": [
 						"{{baseUrl}}api"
 					],
 					"path": [
-						"data",
-						"examples"
+						"notices-with-scores"
 					]
 				}
 			},
