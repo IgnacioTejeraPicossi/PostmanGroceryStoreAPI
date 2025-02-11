@@ -933,7 +933,7 @@
 		},
 		{
 			"key": "model_key4",
-			"value": " granite-3-8b-instruct",
+			"value": "granite-3-8b-instruct",
 			"type": "string"
 		},
 		{
